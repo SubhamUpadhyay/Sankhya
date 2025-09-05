@@ -4,7 +4,6 @@ require('dotenv').config()
 async function connect_mongoose() {
     try{
         await mongoose.connect(process.env.DB_CONNECTION_STRING);
-        console.log(`Mongoose connected`);
     }catch(err)
     {
         console.log("Error while connecting to mongoose :"+err.message);
