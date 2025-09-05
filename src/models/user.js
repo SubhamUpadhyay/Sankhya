@@ -8,7 +8,7 @@ const userSchema = new Schema({
         minLength:3,
         maxLength:20
     },
-    LastName:{
+    MiddleName:{
         type:String,
         minLength:3,
         maxLength:20
@@ -32,7 +32,7 @@ const userSchema = new Schema({
     role:{
         type:String,
         enum:["user","admin"],
-        default:user
+        default:"user"
     },
     ProblemSolved:{
         type:[String],

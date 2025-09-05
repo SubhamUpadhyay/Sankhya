@@ -4,9 +4,9 @@ const validate = (data)=>{
     const isAllowed = mandatoryField.every((k)=>Object.keys(data).includes(k));
     if(!isAllowed)
         throw new Error("Field Missing");
-    if(validator.isEmail(data.EmailId))
+    if(!validator.isEmail(data.EmailId))
         throw new Error("Invalid Email");
-    if(validator.isStrongPassword(data.Password))
+    if(!validator.isStrongPassword(data.Password))
         throw new Error("Weak Password");
 }
 

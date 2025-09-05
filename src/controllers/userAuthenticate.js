@@ -33,10 +33,10 @@ const login = async(req,res)=>{
         throw new Error("Invalid credientials");
         const user = await User.findOne({EmailId})
         if(!user)
-            res.status(404).send("User doesn't exist");
+            return res.status(404).send("User doesn't exist");
         const match = await bcrypt.compare(Password,user.Password);
         if(!match)
-            res.status(401).send("Invalid Credientials");
+            return res.status(401).send("Invalid Credientials");
         const token = jwt.sign({EmailId:EmailId},process.env.JWT_KEY,{expiresIn:3600});
         res.cookie("AccessToken",token,{maxAge:60*60*1000});
 
@@ -48,6 +48,4 @@ const login = async(req,res)=>{
     }
 }
 
-const logout = async(req,res)=>{
-    
-}
+module.exports = {register,login};

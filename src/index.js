@@ -2,11 +2,12 @@ const express = require("express");
 const app = express();
 require('dotenv').config()
 const connect_mongoose = require("./config/db")
-
+const authRouter = require("./routes/userAuthentication")
 const cookieParser = require("cookie-parser")
 
 app.use(express.json());
 app.use(cookieParser());
+app.use("/user",authRouter);
 
 
 
