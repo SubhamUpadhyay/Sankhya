@@ -15,9 +15,9 @@ const register = async (req, res) => {
     // const salt = await bcrypt.genSalt(12);
     req.body.Password = await bcrypt.hash(req.body.Password, 12);
 
-    //jwt token
-
+    req.body.role = "user";
     const user = await User.create(req.body);
+    //jwt token
     const token = jwt.sign({ EmailId: EmailId }, process.env.JWT_KEY, {
       expiresIn: 3600,
     });
