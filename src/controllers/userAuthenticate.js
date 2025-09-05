@@ -18,7 +18,7 @@ const register = async (req, res) => {
     req.body.role = "user";
     const user = await User.create(req.body);
     //jwt token
-    const token = jwt.sign({ EmailId: EmailId }, process.env.JWT_KEY, {
+    const token = jwt.sign({_id:user._id, EmailId: EmailId, role:user.role }, process.env.JWT_KEY, {
       expiresIn: 3600,
     });
     res.cookie("AccessToken", token, { maxAge: 60 * 60 * 1000 });
@@ -36,7 +36,7 @@ const login = async (req, res) => {
     if (!user) return res.status(404).send("User doesn't exist");
     const match = await bcrypt.compare(Password, user.Password);
     if (!match) return res.status(401).send("Invalid Credientials");
-    const token = jwt.sign({ _id:user._id,EmailId: EmailId }, process.env.JWT_KEY, {
+    const token = jwt.sign({ _id:user._id,EmailId: EmailId ,role:user.role}, process.env.JWT_KEY, {
       expiresIn: 3600,
     });
     res.cookie("AccessToken", token, { maxAge: 60 * 60 * 1000 });
@@ -85,4 +85,30 @@ const logout = async (req, res) => {
     redisClient.status(401).send("Error in logout : " + err);
   }
 };
-module.exports = { register, login,logout,getProfile};
+
+const adminRegister = async(req,res)=>{
+    try{
+        //validate the data;
+    validate(req.body);
+    const { FirstName, LastName, EmailId, Password } = req.body;
+    //Email already exist or not .. no need to check as we have made the EmailId as unique in Schema
+    //user.exist({EmailId});
+    // const salt = await bcrypt.genSalt(12);
+    req.body.Password = await bcrypt.hash(req.body.Password, 12);
+
+    req.body.role = "admin";
+    const user = await User.create(req.body);
+    //jwt token
+    const token = jwt.sign({_id:user._id, EmailId: EmailId, role:user.role }, process.env.JWT_KEY, {
+      expiresIn: 3600,
+    });
+    res.cookie("AccessToken", token, { maxAge: 60 * 60 * 1000 });
+    res.status(201).send("User Registerd Successfully");
+
+    }catch(err)
+    {
+        res.status(401).send("Admin Registration Failed "+err);
+    }
+}
+
+module.exports = { register, login,logout,getProfile,adminRegister};
