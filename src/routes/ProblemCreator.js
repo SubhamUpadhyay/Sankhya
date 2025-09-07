@@ -7,8 +7,8 @@ ProblemRouter.get("/:id",fetchProblem);
 //fetch all problems
 ProblemRouter.get("/",getAllProblem);
 //update
-ProblemRouter.patch("/:id",updateProblem);    //Admin required
+ProblemRouter.patch("/:id",updateProblem);    //Admin Access required
 //delete
-ProblemRouter.delete("/:id",deleteProblem);   //Admin required
+ProblemRouter.delete("/:id",deleteProblem);   //Admin Access required
 //give back the problem solved by user
 ProblemRouter.get("/user",solvedProblems);

@@ -3,8 +3,8 @@ const authRouter = express.Router()
 const {register,login,logout,getProfile,adminRegister} = require("../controllers/userAuthenticate");
 const validateToken = require("../Middleware/validateToken")
 const AdminMiddleware = require("../Middleware/AdminMiddleware");
-//Register
 
+//Register
 authRouter.post('/register',register);
 
 //login

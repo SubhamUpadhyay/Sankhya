@@ -62,7 +62,7 @@ const ProblemSchema = new Schema({
     ],
     ProblemCreator:{
         type:Schema.Types.ObjectId,
-        ref:'user', //collection to refer
+        ref:'user', //collection to refer for the type
         required:true
     }
 
