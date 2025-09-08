@@ -9,5 +9,4 @@ async function connect_mongoose() {
         console.log("Error while connecting to mongoose :"+err.message);
     }
 }
-
 module.exports = connect_mongoose;
