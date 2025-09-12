@@ -1,5 +1,6 @@
 const express = require("express")
 const ProblemRouter = express.Router();
+const createProblem = require("../controllers/userProblem")
 const AdminMiddleware = require("../Middleware/AdminMiddleware")
 //create
 ProblemRouter.post("/create",AdminMiddleware,createProblem);   //Admin required
