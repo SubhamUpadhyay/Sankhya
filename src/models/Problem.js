@@ -64,7 +64,19 @@ const ProblemSchema = new Schema({
         type:Schema.Types.ObjectId,
         ref:'user', //collection to refer for the type
         required:true
-    }
+    },
+    referenceSolution:[
+        {
+            Langugage:{
+                type:String,
+                required:true
+            },
+            completeCode:{
+                type:String,
+                required:true
+            }
+        }
+    ]
 
 })
 
